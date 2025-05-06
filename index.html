@@ -45,13 +45,6 @@
             display: flex;
             align-items: center;
         }
-												 
-											   
-						  
-											
-								
-						   
-		 
         .product-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
@@ -99,20 +92,40 @@
         }
         .nav a:hover { background: #D5DBDB; }
         footer { margin-top: 50px; text-align: center; font-size: 0.9em; color: #555; padding-top: 20px; border-top: 1px solid #ddd; }
+        
+        /* NUOVO STILE PER IL PULSANTE DI CONVERSIONE */
+        #convert-btn {
+            background: #232F3E;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+            font-weight: bold;
+        }
+        #convert-btn:hover {
+            background: #FF9900;
+        }
     </style>
 </head>
 <body>
-    <h1>🛍️ Offerte Amazon per Categoria</h1>
-    
-    <!-- Navigazione rapida -->
-    <div class="nav">
-        <a href="#elettronica">🎮 Elettronica</a>
-        <a href="#casa">🏠 Casa</a>
-        <a href="#libri">📚 Libri</a>
-        <a href="#bellezza">💄 Sport e tempo libero</a>
-        <a href="#giardino">🌿 Giardino</a>
-        <a href="#giochi">🎮 Giochi</a>
-    </div>
+    <div class="main-container">
+        <h1>🛍️ Offerte Amazon per Categoria</h1>
+        
+        <!-- NUOVO PULSANTE DI CONVERSIONE -->
+        <button id="convert-btn">🔗 Converti tutti i link in affiliati</button>
+        
+        <!-- Navigazione rapida -->
+        <div class="nav">
+            <a href="#elettronica">🎮 Elettronica</a>
+            <a href="#casa">🏠 Casa</a>
+            <a href="#libri">📚 Libri</a>
+            <a href="#bellezza">💄 Sport e tempo libero</a>
+            <a href="#giardino">🌿 Giardino</a>
+            <a href="#giochi">🎮 Giochi</a>
+        </div>
 
     <!-- Sezione ELETTRONICA -->
     <div id="elettronica" class="category-section">
@@ -216,7 +229,6 @@
                     <a href="https://amzn.to/4iRZC25" class="buy-btn" target="_blank">Vedi offerta</a>
                 </div>
             </div>
-																 
         </div>
     </div>
 
@@ -257,6 +269,68 @@
         </div>
     </div>
 
+    <!-- NUOVO SCRIPT PER LA GESTIONE DEI LINK -->
+    <script>
+        const REFERRAL_ID = "shoppingal-21"; // Il tuo tag Amazon
+        
+        // Funzione principale per convertire i link
+        function convertAmazonLinks() {
+            const links = document.querySelectorAll('a[href*="amazon"], a[href*="amzn.to"]');
+            let convertedCount = 0;
+            
+            links.forEach(link => {
+                const originalUrl = link.href;
+                
+                // Se il link ha già il tag, salta
+                if (originalUrl.includes('tag=' + REFERRAL_ID)) {
+                    return;
+                }
+                
+                // Se è un link abbreviato (amzn.to), lo espandiamo prima
+                if (originalUrl.includes('amzn.to')) {
+                    fetchUnshortenedUrl(originalUrl).then(fullUrl => {
+                        link.href = addReferralToUrl(fullUrl);
+                        convertedCount++;
+                    });
+                } else {
+                    link.href = addReferralToUrl(originalUrl);
+                    convertedCount++;
+                }
+            });
+            
+            alert(`✅ ${convertedCount} link convertiti con il tuo referral ID!`);
+        }
+        
+        // Aggiunge il referral ID a un URL
+        function addReferralToUrl(url) {
+            if (url.includes('tag=')) {
+                return url.replace(/(tag=)[^&]+/, '$1' + REFERRAL_ID);
+            } else {
+                const separator = url.includes('?') ? '&' : '?';
+                return url + separator + 'tag=' + REFERRAL_ID;
+            }
+        }
+        
+        // Espande i link amzn.to (richiede un proxy CORS)
+        async function fetchUnshortenedUrl(shortUrl) {
+            try {
+                const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(shortUrl)}`);
+                const data = await response.json();
+                return data.contents.match(/href="([^"]+)/)[1];
+            } catch (error) {
+                console.error("Errore nell'espansione del link:", error);
+                return shortUrl; // Fallback
+            }
+        }
+        
+        // Converti automaticamente al caricamento della pagina
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(convertAmazonLinks, 1000); // Aspetta 1 secondo per sicurezza
+        });
+        
+        // Pulsante di conversione manuale
+        document.getElementById('convert-btn').addEventListener('click', convertAmazonLinks);
+    </script>
     <!-- Footer -->
     <footer>
         <div class="disclaimer">
