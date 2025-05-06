@@ -14,7 +14,7 @@
             background-size: cover;
             background-attachment: fixed;
             background-position: center;
-            background-color: #f0f2f5; /* Colore di fallback */
+            background-color: #f0f2f5;
         }
 
         /* CONTENITORE PRINCIPALE */
@@ -27,7 +27,6 @@
             box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
         }
 
-        /* MANTIENI TUTTI GLI ALTRI STILI ESISTENTI */
         h1 { 
             color: #FF9900; 
             text-align: center; 
@@ -93,7 +92,7 @@
         .nav a:hover { background: #D5DBDB; }
         footer { margin-top: 50px; text-align: center; font-size: 0.9em; color: #555; padding-top: 20px; border-top: 1px solid #ddd; }
         
-        /* NUOVO STILE PER IL PULSANTE DI CONVERSIONE */
+        /* STILE PULSANTI E INPUT */
         #convert-btn {
             background: #232F3E;
             color: white;
@@ -108,236 +107,286 @@
         #convert-btn:hover {
             background: #FF9900;
         }
+        #amazon-url-input {
+            padding: 10px;
+            width: 70%;
+            max-width: 500px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        #amazon-url-input:focus {
+            outline: none;
+            border-color: #FF9900;
+        }
+        #add-product-btn {
+            padding: 10px 15px;
+            background: #FF9900;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        #add-product-btn:hover {
+            background: #e68a00;
+        }
+        .url-converter-container {
+            text-align: center;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
     </style>
 </head>
 <body>
     <div class="main-container">
         <h1>🛍️ Offerte Amazon per Categoria</h1>
         
-        <!-- NUOVO PULSANTE DI CONVERSIONE -->
+        <!-- PULSANTE DI CONVERSIONE + BARRA URL -->
         <button id="convert-btn">🔗 Converti tutti i link in affiliati</button>
+        
+        <div class="url-converter-container">
+            <input 
+                type="text" 
+                id="amazon-url-input" 
+                placeholder="Incolla URL Amazon qui..."
+            >
+            <button id="add-product-btn">Aggiungi Prodotto</button>
+            <p><small>Inserisci un link Amazon per convertirlo e aggiungere il prodotto alla pagina</small></p>
+        </div>
         
         <!-- Navigazione rapida -->
         <div class="nav">
             <a href="#elettronica">🎮 Elettronica</a>
             <a href="#casa">🏠 Casa</a>
             <a href="#libri">📚 Libri</a>
-            <a href="#bellezza">💄 Sport e tempo libero</a>
+            <a href="#bellezza">💄 Salute e bellezza</a>
             <a href="#giardino">🌿 Giardino</a>
-            <a href="#giochi">🎮 Giochi</a>
+            <a href="#sport">⚽ Sport</a>
         </div>
 
-    <!-- Sezione ELETTRONICA -->
-    <div id="elettronica" class="category-section">
-        <h2 class="category-title"><i>🎮</i> Elettronica</h2>
-        
-        <!-- Sottocategoria Smartphone -->
-        <div class="subcategory">
-            <h3>Smartphone e Accessori</h3>
-            <div class="product-grid">
-                <div class="product-card">
-                    <img src="https://m.media-amazon.com/images/I/61bK6PMOC3L._AC_UL320_.jpg" alt="iPhone 16 Pro" class="product-img">
-                    <div class="product-title">iPhone 16 Pro 128GB</div>
-                    <div class="prime-badge">✔ Con Prime</div>
-                    <div class="product-price">€1.059,00</div>
-                    <a href="https://www.amazon.it/dp/B0DGJ2WT1R?tag=shoppingal-21" class="buy-btn" target="_blank">Vedi offerta</a>
-                </div>
-                
-                <div class="product-card">
-                    <img src="https://m.media-amazon.com/images/I/71+kSot5vOL._AC_SX679_.jpg" alt="Custodia iPhone" class="product-img">
-                    <div class="product-title">Custodia iPhone 16 Pro</div>
-                    <div class="prime-badge">✔ Con Prime</div>
-                    <div class="product-price">coupon del 15% €12,74</div>
-                    <a href="https://amzn.to/3YUtYtN" class="buy-btn" target="_blank">Vedi offerta</a>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Sottocategoria PC -->
-        <div class="subcategory">
-            <h3>Computer e Portatili</h3>
-            <div class="product-grid">
-                <div class="product-card">
-                    <img src="https://m.media-amazon.com/images/I/61C0YZCU1-L._AC_SX522_.jpg" alt="SAMSUNG Galaxy Book2 Pro SE" class="product-img">
-                    <div class="product-title">SAMSUNG Galaxy Book2 Pro SE, 15.6" AMOLED, Intel Core Ultra 5, 16GB RAM, 512GB SSD, Windows 11 Home, Silver [Versione italiana]"</div>
-                    <div class="product-price">con 6% di sconto 849,00</div>
-                    <a href="https://amzn.to/4iO8llG" class="buy-btn" target="_blank">Vedi offerta</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Sezione CASA -->
-    <div id="casa" class="category-section">
-        <h2 class="category-title"><i>🏠</i> Casa e Cucina</h2>
-        
-        <!-- Sottocategoria Elettrodomestici -->
-        <div class="subcategory">
-            <h3>Elettrodomestici</h3>
-            <div class="product-grid">
-                <div class="product-card">
-                    <img src="https://m.media-amazon.com/images/I/71PZfV4rttL._AC_SX522_.jpg" alt="Asciugatrice" class="product-img">
-                    <div class="product-title">Electrolux Asciugatrice 600 GentleCare 9 kg EW6H39G, Classe A+++, Tecnologia SensiCare e MixCare, Programma Lenzuola XL, Antipiega, Filtro EasyClean, Pompa di Calore, 850x596x636 mm [Classe di efficienza energetica A+++]</div>
-                    <div class="prime-badge">✔ Con Prime</div>
-                    <div class="product-price">Offerta a tempo €569,05</div>
-                    <a href="https://amzn.to/3YsDJiA" class="buy-btn" target="_blank">Vedi offerta</a>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Sottocategoria Arredamento -->
-        <div class="subcategory">
-            <h3>Arredamento</h3>
-            <div class="product-grid">
-                <div class="product-card">
-                    <img src="https://m.media-amazon.com/images/I/81TFhUgnoXL._AC_SX679_.jpg" alt="Tappeto Salotto" class="product-img">
-                    <div class="product-title">Tappeto Salotto Pelo Corto Monocolore Design Moderno Lavabile, Colore: Blu Chiaro Turchese, Dimensione:160x220 cm</div>
-                    <div class="product-price">coupon 10% €41,39</div>
-                    <a href="https://amzn.to/3YwEWW9" class="buy-btn" target="_blank">Vedi offerta</a>
-                </div>
-            </div>
-        </div>
-    </div>
-     
-        <!-- Salute e cura della persona -->
-        <div class="subcategory">
-            <h3>Salute e cura della persona</h3>
-            <div class="product-grid">
-                <div class="product-card">
-                    <img src="https://m.media-amazon.com/images/I/81eRONgl22L._AC_SX522_.jpg" alt="Detersivi liquidi" class="product-img">
-                    <div class="product-title">Dash Power Detersivo Liquido Lavatrice, 80 Lavaggi (4x20), Freschezza Di Lenor, Risveglio Primaverile, rimuove addirittura gli odori di sudore vecchi di 7 giorni, per una pulizia impeccabile</div>
-                    <div class="product-price">-38% €24,99</div>
-                    <a href="https://www.amazon.it/dp/B0DZ2XWBP7/ref=cm_sw_r_as_gl_apa_gl_i_dl_YQ0988SREX3PT2PW5QWF?linkCode=ml1&tag=shoppingal-21&th=1" class="buy-btn" target="_blank">Vedi offerta</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Sezione LIBRI -->
-    <div id="libri" class="category-section">
-        <h2 class="category-title"><i>📚</i> Libri</h2>
-        
-        <!-- Sottocategoria Narrativa -->
-        <div class="subcategory">
-            <h3>Giochi e quiz</h3>
-            <div class="product-grid">
-                <div class="product-card">
-                    <img src="https://m.media-amazon.com/images/I/61a-y03nTNL._SY425_.jpg" alt="Libro" class="product-img">
-                    <div class="product-title">La logica degli enigmi. Giochi, rompicapi e sfide per allenare la mente Copertina flessibile – 6 maggio 2025a</div>
-                    <div class="prime-badge">✔ Con Prime</div>
-                    <div class="product-price">-5% €18,90</div>
-                    <a href="https://amzn.to/4iRZC25" class="buy-btn" target="_blank">Vedi offerta</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Sport e tempo libero -->
-    <div id="Sport e tempo libero" class="category-section">
-        <h2 class="category-title"><i>💄</i> Sport e tempo libero</h2>
-        
-        <!-- Sottocategoria Cura del Corpo -->
-        <div class="subcategory">
-            <h3>Fitness e palestra</h3>
-            <div class="product-grid">
-                <div class="product-card">
-                    <img src="https://m.media-amazon.com/images/I/7133MgkKegL._AC_SX679_.jpg" alt="Tapis Roulant Elettrico con Inclinazione" class="product-img">
-                    <div class="product-title">Tapis Roulant Elettrico con Inclinazione,2.5HP Tapis Roulant Pieghevole con Pendenza,0.8-12km/H Walking Pad,Treadmill 136KG,Salvaspazio per Casa e Ufficio,Palestra Casa,Display LED</div>
-                    <div class="product-price"> con coupon sconto di €100,00 €349,99</div>
-                    <a href="https://amzn.to/3GSWS74" class="buy-btn" target="_blank">Vedi offerta</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Sezione GIARDINO -->
-    <div id="giardino" class="category-section">
-        <h2 class="category-title"><i>🌿</i> Giardino</h2>
-        
-        <!-- Sottocategoria Attrezzi -->
-        <div class="subcategory">
-            <h3>Attrezzi da Giardinaggio</h3>
-            <div class="product-grid">
-                <div class="product-card">
-                    <img src="https://m.media-amazon.com/images/I/619qKD2agbL._AC_SX679_.jpg" alt="Idropulitrice" class="product-img">
-                    <div class="product-title">Kärcher Idropulitrice K 7 Premium Smart Control Flex Home, Pressione 180 bar, Portata 600 l/h, Area di Lavoro 60 m²/h, Filtro Acqua Premontato, Tubo Flex e Pistola Alta Pressione, Lancia Multi Jet</div>
-                    <div class="prime-badge">✔ Con Prime</div>
-                    <div class="product-price">-6% offerta a tempo€499,99</div>
-                    <a href="https://amzn.to/4k8NNFO" class="buy-btn" target="_blank">Vedi offerta</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- NUOVO SCRIPT PER LA GESTIONE DEI LINK -->
-    <script>
-        const REFERRAL_ID = "shoppingal-21"; // Il tuo tag Amazon
-        
-        // Funzione principale per convertire i link
-        function convertAmazonLinks() {
-            const links = document.querySelectorAll('a[href*="amazon"], a[href*="amzn.to"]');
-            let convertedCount = 0;
+        <!-- Sezione ELETTRONICA -->
+        <div id="elettronica" class="category-section">
+            <h2 class="category-title"><i>🎮</i> Elettronica</h2>
             
-            links.forEach(link => {
-                const originalUrl = link.href;
+            <!-- Sottocategoria Smartphone -->
+            <div class="subcategory">
+                <h3>Smartphone e Accessori</h3>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/61bK6PMOC3L._AC_UL320_.jpg" alt="iPhone 16 Pro" class="product-img">
+                        <div class="product-title">iPhone 16 Pro 128GB</div>
+                        <div class="prime-badge">✔ Con Prime</div>
+                        <div class="product-price">€1.059,00</div>
+                        <a href="https://www.amazon.it/dp/B0DGJ2WT1R?tag=shoppingal-21" class="buy-btn" target="_blank">Vedi offerta</a>
+                    </div>
+                    
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/71+kSot5vOL._AC_SX679_.jpg" alt="Custodia iPhone" class="product-img">
+                        <div class="product-title">Custodia iPhone 16 Pro</div>
+                        <div class="prime-badge">✔ Con Prime</div>
+                        <div class="product-price">coupon del 15% €12,74</div>
+                        <a href="https://amzn.to/3YUtYtN" class="buy-btn" target="_blank">Vedi offerta</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sezione CASA -->
+        <div id="casa" class="category-section">
+            <h2 class="category-title"><i>🏠</i> Casa e Cucina</h2>
+            
+            <!-- Sottocategoria Elettrodomestici -->
+            <div class="subcategory">
+                <h3>Elettrodomestici</h3>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/71PZfV4rttL._AC_SX522_.jpg" alt="Asciugatrice" class="product-img">
+                        <div class="product-title">Electrolux Asciugatrice 600 GentleCare 9 kg</div>
+                        <div class="prime-badge">✔ Con Prime</div>
+                        <div class="product-price">Offerta a tempo €569,05</div>
+                        <a href="https://amzn.to/3YsDJiA" class="buy-btn" target="_blank">Vedi offerta</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sezione SALUTE E BELLEZZA -->
+        <div id="bellezza" class="category-section">
+            <h2 class="category-title"><i>💄</i> Salute e Bellezza</h2>
+            
+            <div class="subcategory">
+                <h3>Detersivi e Igiene</h3>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/81eRONgl22L._AC_SX522_.jpg" alt="Detersivi liquidi" class="product-img">
+                        <div class="product-title">Dash Power Detersivo Liquido Lavatrice, 80 Lavaggi</div>
+                        <div class="product-price">-38% €24,99</div>
+                        <a href="https://www.amazon.it/dp/B0DZ2XWBP7/ref=cm_sw_r_as_gl_apa_gl_i_dl_YQ0988SREX3PT2PW5QWF?linkCode=ml1&tag=shoppingal-21&th=1" class="buy-btn" target="_blank">Vedi offerta</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sezione LIBRI -->
+        <div id="libri" class="category-section">
+            <h2 class="category-title"><i>📚</i> Libri</h2>
+            
+            <div class="subcategory">
+                <h3>Giochi e quiz</h3>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/61a-y03nTNL._SY425_.jpg" alt="Libro" class="product-img">
+                        <div class="product-title">La logica degli enigmi. Giochi, rompicapi e sfide</div>
+                        <div class="prime-badge">✔ Con Prime</div>
+                        <div class="product-price">-5% €18,90</div>
+                        <a href="https://amzn.to/4iRZC25" class="buy-btn" target="_blank">Vedi offerta</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sezione SPORT -->
+        <div id="sport" class="category-section">
+            <h2 class="category-title"><i>⚽</i> Sport e tempo libero</h2>
+            
+            <div class="subcategory">
+                <h3>Fitness e palestra</h3>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/7133MgkKegL._AC_SX679_.jpg" alt="Tapis Roulant" class="product-img">
+                        <div class="product-title">Tapis Roulant Elettrico con Inclinazione</div>
+                        <div class="product-price">con coupon sconto di €100,00 €349,99</div>
+                        <a href="https://amzn.to/3GSWS74" class="buy-btn" target="_blank">Vedi offerta</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sezione GIARDINO -->
+        <div id="giardino" class="category-section">
+            <h2 class="category-title"><i>🌿</i> Giardino</h2>
+            
+            <div class="subcategory">
+                <h3>Attrezzi da Giardinaggio</h3>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <img src="https://m.media-amazon.com/images/I/619qKD2agbL._AC_SX679_.jpg" alt="Idropulitrice" class="product-img">
+                        <div class="product-title">Kärcher Idropulitrice K 7 Premium</div>
+                        <div class="prime-badge">✔ Con Prime</div>
+                        <div class="product-price">-6% offerta a tempo €499,99</div>
+                        <a href="https://amzn.to/4k8NNFO" class="buy-btn" target="_blank">Vedi offerta</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCRIPT PRINCIPALE -->
+        <script>
+            const REFERRAL_ID = "shoppingal-21";
+            
+            // Converti tutti i link Amazon
+            function convertAmazonLinks() {
+                const links = document.querySelectorAll('a[href*="amazon"], a[href*="amzn.to"]');
+                let convertedCount = 0;
                 
-                // Se il link ha già il tag, salta
-                if (originalUrl.includes('tag=' + REFERRAL_ID)) {
+                links.forEach(link => {
+                    const originalUrl = link.href;
+                    
+                    if (originalUrl.includes('tag=' + REFERRAL_ID)) return;
+                    
+                    if (originalUrl.includes('amzn.to')) {
+                        fetchUnshortenedUrl(originalUrl).then(fullUrl => {
+                            link.href = addReferralToUrl(fullUrl);
+                            convertedCount++;
+                        });
+                    } else {
+                        link.href = addReferralToUrl(originalUrl);
+                        convertedCount++;
+                    }
+                });
+                
+                alert(`✅ ${convertedCount} link convertiti con il tuo referral ID!`);
+            }
+            
+            // Aggiungi referral ID agli URL
+            function addReferralToUrl(url) {
+                if (url.includes('tag=')) {
+                    return url.replace(/(tag=)[^&]+/, '$1' + REFERRAL_ID);
+                } else {
+                    const separator = url.includes('?') ? '&' : '?';
+                    return url + separator + 'tag=' + REFERRAL_ID;
+                }
+            }
+            
+            // Espandi link abbreviati (amzn.to)
+            async function fetchUnshortenedUrl(shortUrl) {
+                try {
+                    const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(shortUrl)}`);
+                    const data = await response.json();
+                    return data.contents.match(/href="([^"]+)/)[1];
+                } catch (error) {
+                    console.error("Errore nell'espansione del link:", error);
+                    return shortUrl;
+                }
+            }
+            
+            // Aggiungi prodotto da URL
+            document.getElementById('add-product-btn').addEventListener('click', async function() {
+                const urlInput = document.getElementById('amazon-url-input').value.trim();
+                
+                if (!urlInput.includes('amazon') && !urlInput.includes('amzn.to')) {
+                    alert("Inserisci un URL valido di Amazon!");
                     return;
                 }
-                
-                // Se è un link abbreviato (amzn.to), lo espandiamo prima
-                if (originalUrl.includes('amzn.to')) {
-                    fetchUnshortenedUrl(originalUrl).then(fullUrl => {
-                        link.href = addReferralToUrl(fullUrl);
-                        convertedCount++;
-                    });
-                } else {
-                    link.href = addReferralToUrl(originalUrl);
-                    convertedCount++;
+
+                let affiliateUrl = urlInput.includes('amzn.to') 
+                    ? await fetchUnshortenedUrl(urlInput) 
+                    : urlInput;
+                affiliateUrl = addReferralToUrl(affiliateUrl);
+
+                const asin = affiliateUrl.match(/\/dp\/([A-Z0-9]{10})/)?.[1] || 
+                             affiliateUrl.match(/\/gp\/product\/([A-Z0-9]{10})/)?.[1];
+
+                if (!asin) {
+                    alert("URL non valido: impossibile estrarre l'ASIN del prodotto.");
+                    return;
+                }
+
+                // Aggiungi card prodotto (placeholder)
+                const firstProductGrid = document.querySelector('.product-grid');
+                if (firstProductGrid) {
+                    firstProductGrid.innerHTML += `
+                        <div class="product-card">
+                            <img src="https://via.placeholder.com/200?text=Caricamento..." class="product-img" id="img-${asin}">
+                            <div class="product-title" id="title-${asin}">Nuovo Prodotto (ASIN: ${asin})</div>
+                            <div class="product-price" id="price-${asin}">€--,--</div>
+                            <a href="${affiliateUrl}" class="buy-btn" target="_blank">Vedi offerta</a>
+                        </div>
+                    `;
+                    document.getElementById('amazon-url-input').value = '';
                 }
             });
+
+            // Converti automaticamente al caricamento
+            document.addEventListener('DOMContentLoaded', () => {
+                setTimeout(convertAmazonLinks, 1000);
+            });
             
-            alert(`✅ ${convertedCount} link convertiti con il tuo referral ID!`);
-        }
-        
-        // Aggiunge il referral ID a un URL
-        function addReferralToUrl(url) {
-            if (url.includes('tag=')) {
-                return url.replace(/(tag=)[^&]+/, '$1' + REFERRAL_ID);
-            } else {
-                const separator = url.includes('?') ? '&' : '?';
-                return url + separator + 'tag=' + REFERRAL_ID;
-            }
-        }
-        
-        // Espande i link amzn.to (richiede un proxy CORS)
-        async function fetchUnshortenedUrl(shortUrl) {
-            try {
-                const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(shortUrl)}`);
-                const data = await response.json();
-                return data.contents.match(/href="([^"]+)/)[1];
-            } catch (error) {
-                console.error("Errore nell'espansione del link:", error);
-                return shortUrl; // Fallback
-            }
-        }
-        
-        // Converti automaticamente al caricamento della pagina
-        document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(convertAmazonLinks, 1000); // Aspetta 1 secondo per sicurezza
-        });
-        
-        // Pulsante di conversione manuale
-        document.getElementById('convert-btn').addEventListener('click', convertAmazonLinks);
-    </script>
-    <!-- Footer -->
-    <footer>
-        <div class="disclaimer">
-            <h3>⚠️ Informativa Affiliazione Amazon</h3>
-            <p><small>Questo sito partecipa al Programma di affiliazione Amazon EU. Quando acquisti tramite i nostri link, riceviamo una piccola commissione senza alcun costo aggiuntivo per te. Grazie per il supporto!</small></p>
-        </div>
-        <p>© 2025 shoppingal - Tutti i diritti riservati</p>
-    </footer>
+            // Pulsante di conversione manuale
+            document.getElementById('convert-btn').addEventListener('click', convertAmazonLinks);
+        </script>
+
+        <!-- Footer -->
+        <footer>
+            <div class="disclaimer">
+                <h3>⚠️ Informativa Affiliazione Amazon</h3>
+                <p><small>Questo sito partecipa al Programma di affiliazione Amazon EU. Quando acquisti tramite i nostri link, riceviamo una piccola commissione senza alcun costo aggiuntivo per te. Grazie per il supporto!</small></p>
+            </div>
+            <p>© 2025 shoppingal - Tutti i diritti riservati</p>
+        </footer>
+    </div>
 </body>
 </html>
