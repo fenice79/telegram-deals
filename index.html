@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -57,6 +56,7 @@
             padding: 15px; 
             transition: transform 0.3s;
             background: white;
+            position: relative;
         }
         .product-card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .product-img { width: 100%; height: 180px; object-fit: contain; margin-bottom: 10px; }
@@ -139,6 +139,97 @@
             background: #f8f9fa;
             border-radius: 8px;
         }
+        
+        /* NUOVI STILI */
+        .product-reviews {
+            margin: 8px 0;
+            color: #555;
+            font-size: 0.9em;
+        }
+        .rating {
+            color: #0F1111;
+            font-weight: bold;
+        }
+        .star-icon {
+            color: #FFA41C;
+        }
+        .review-count {
+            color: #555;
+        }
+        .time-deal {
+            background: #CC0C39;
+            color: white;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 0.8em;
+            margin: 0 5px;
+        }
+        .original-price {
+            color: #888;
+            text-decoration: line-through;
+            margin-left: 5px;
+            font-size: 0.9em;
+        }
+        .delete-product {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .delete-product:hover {
+            background: #cc0000;
+        }
+        .product-category-select {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin: 10px 5px;
+            width: 200px;
+        }
+        .product-subcategory-input {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin: 10px 5px;
+            width: 200px;
+        }
+        .form-group {
+            margin: 10px 0;
+        }
+        .manual-data-input {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background: #f1f1f1;
+            border-radius: 5px;
+        }
+        .manual-data-input input,
+        .manual-data-input textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .toggle-manual-btn {
+            background: none;
+            border: none;
+            color: #0066c0;
+            cursor: pointer;
+            text-decoration: underline;
+            margin: 5px 0;
+        }
+        #product-custom-category {
+            display: none;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -156,6 +247,60 @@
             >
             <button id="add-product-btn">Aggiungi Prodotto</button>
             <p><small>Inserisci un link Amazon per convertirlo e aggiungere il prodotto alla pagina</small></p>
+            
+            <button class="toggle-manual-btn" id="toggle-manual-btn">+ Inserimento manuale dati</button>
+            
+            <div class="manual-data-input" id="manual-data-input">
+                <div class="form-group">
+                    <input type="text" id="product-title-input" placeholder="Titolo prodotto">
+                </div>
+                <div class="form-group">
+                    <input type="text" id="product-image-input" placeholder="URL immagine">
+                </div>
+                <div class="form-group">
+                    <input type="text" id="product-price-input" placeholder="Prezzo (es. €29,99)">
+                </div>
+                <div class="form-group">
+                    <input type="text" id="product-original-price-input" placeholder="Prezzo originale (opzionale)">
+                </div>
+                <div class="form-group">
+                    <input type="text" id="product-rating-input" placeholder="Valutazione (es. 4.5)">
+                </div>
+                <div class="form-group">
+                    <input type="text" id="product-reviews-input" placeholder="Numero recensioni (es. 125)">
+                </div>
+                <div class="form-group">
+                    <label for="prime-checkbox">
+                        <input type="checkbox" id="prime-checkbox"> Prime
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label for="time-deal-checkbox">
+                        <input type="checkbox" id="time-deal-checkbox"> Offerta a tempo
+                    </label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <select id="product-category" class="product-category-select">
+                    <option value="elettronica">Elettronica</option>
+                    <option value="casa">Casa</option>
+                    <option value="libri">Libri</option>
+                    <option value="bellezza">Salute e bellezza</option>
+                    <option value="giardino">Giardino</option>
+                    <option value="sport">Sport</option>
+                    <option value="giochi-e-giocattoli">Giochi e giocattoli</option>
+                    <option value="other">Altra categoria</option>
+                </select>
+                
+                <div id="product-custom-category">
+                    <input type="text" id="custom-category-input" placeholder="Nome nuova categoria">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <input type="text" id="product-subcategory" class="product-subcategory-input" placeholder="Sottocategoria (opzionale)">
+            </div>
         </div>
         
         <!-- Navigazione rapida -->
@@ -166,7 +311,7 @@
             <a href="#bellezza">💄 Salute e bellezza</a>
             <a href="#giardino">🌿 Giardino</a>
             <a href="#sport">⚽ Sport</a>
-            <a href="#Giochi e giocattoli">🎮 Giochi e giocattoli</a>
+            <a href="#giochi-e-giocattoli">🎮 Giochi e giocattoli</a>
         </div>
 
         <!-- Sezione ELETTRONICA -->
@@ -230,7 +375,7 @@
                     
                     <div class="product-card">
                        <img src="https://m.media-amazon.com/images/I/81VPN-e9d0L._AC_SX522_.jpg" alt="Barilla Pasta Farfalle N.265, Pasta Corta di Semol" class="product-img">
-                       <div class="product-title">Tennent’s Super Birra, Bottiglia - Pacco da 24 x 355 ml</div>
+                       <div class="product-title">Tennent's Super Birra, Bottiglia - Pacco da 24 x 355 ml</div>
                        <div class="prime-badge">✔ Con Prime</div>
                        <div class="product-price">€-8% 32,79</div>
                        <a href="https://amzn.to/3JLQeRN" class="buy-btn" target="_blank">Vedi offerta</a>
@@ -367,6 +512,13 @@
         <!-- SCRIPT PRINCIPALE -->
         <script>
             const REFERRAL_ID = "shoppingal-21";
+            let products = JSON.parse(localStorage.getItem('amazonAffiliateProducts')) || [];
+            
+            // Inizializza la pagina
+            document.addEventListener('DOMContentLoaded', () => {
+                setTimeout(convertAmazonLinks, 1000);
+                renderSavedProducts();
+            });
             
             // Converti tutti i link Amazon
             function convertAmazonLinks() {
@@ -389,7 +541,9 @@
                     }
                 });
                 
-                alert(`✅ ${convertedCount} link convertiti con il tuo referral ID!`);
+                if (convertedCount > 0) {
+                    console.log(`✅ ${convertedCount} link convertiti con il tuo referral ID!`);
+                }
             }
             
             // Aggiungi referral ID agli URL
@@ -414,9 +568,35 @@
                 }
             }
             
+            // Toggle manual data input
+            document.getElementById('toggle-manual-btn').addEventListener('click', function() {
+                const manualInput = document.getElementById('manual-data-input');
+                manualInput.style.display = manualInput.style.display === 'none' ? 'block' : 'none';
+                this.textContent = manualInput.style.display === 'none' ? 
+                    '+ Inserimento manuale dati' : '- Nascondi inserimento manuale';
+            });
+            
+            // Gestione selezione categoria
+            document.getElementById('product-category').addEventListener('change', function() {
+                document.getElementById('product-custom-category').style.display = 
+                    this.value === 'other' ? 'block' : 'none';
+            });
+            
             // Aggiungi prodotto da URL
             document.getElementById('add-product-btn').addEventListener('click', async function() {
                 const urlInput = document.getElementById('amazon-url-input').value.trim();
+                const categorySelect = document.getElementById('product-category');
+                const customCategoryInput = document.getElementById('custom-category-input');
+                const subcategoryInput = document.getElementById('product-subcategory').value.trim();
+                
+                let category = categorySelect.value;
+                if (category === 'other') {
+                    category = customCategoryInput.value.trim().toLowerCase().replace(/\s+/g, '-');
+                    if (!category) {
+                        alert("Inserisci un nome per la nuova categoria!");
+                        return;
+                    }
+                }
                 
                 if (!urlInput.includes('amazon') && !urlInput.includes('amzn.to')) {
                     alert("Inserisci un URL valido di Amazon!");
@@ -435,26 +615,224 @@
                     alert("URL non valido: impossibile estrarre l'ASIN del prodotto.");
                     return;
                 }
-
-                // Aggiungi card prodotto (placeholder)
-                const firstProductGrid = document.querySelector('.product-grid');
-                if (firstProductGrid) {
-                    firstProductGrid.innerHTML += `
-                        <div class="product-card">
-                            <img src="https://via.placeholder.com/200?text=Caricamento..." class="product-img" id="img-${asin}">
-                            <div class="product-title" id="title-${asin}">Nuovo Prodotto (ASIN: ${asin})</div>
-                            <div class="product-price" id="price-${asin}">€--,--</div>
-                            <a href="${affiliateUrl}" class="buy-btn" target="_blank">Vedi offerta</a>
+                
+                // Estrai dati manuali se forniti
+                const manualTitle = document.getElementById('product-title-input').value.trim();
+                const manualImage = document.getElementById('product-image-input').value.trim();
+                const manualPrice = document.getElementById('product-price-input').value.trim();
+                const manualOriginalPrice = document.getElementById('product-original-price-input').value.trim();
+                const manualRating = document.getElementById('product-rating-input').value.trim();
+                const manualReviews = document.getElementById('product-reviews-input').value.trim();
+                const hasPrime = document.getElementById('prime-checkbox').checked;
+                const isTimeDeal = document.getElementById('time-deal-checkbox').checked;
+                
+                // Crea oggetto prodotto
+                const product = {
+                    asin: asin,
+                    url: affiliateUrl,
+                    category: category,
+                    subcategory: subcategoryInput || 'Varie',
+                    title: manualTitle || `Prodotto ASIN: ${asin}`,
+                    image: manualImage || 'https://via.placeholder.com/200?text=Immagine+non+disponibile',
+                    price: manualPrice || '€--,--',
+                    originalPrice: manualOriginalPrice || '',
+                    rating: manualRating || '',
+                    reviews: manualReviews || '',
+                    prime: hasPrime,
+                    timeDeal: isTimeDeal,
+                    added: new Date().toISOString()
+                };
+                
+                // Salva il prodotto
+                products.push(product);
+                localStorage.setItem('amazonAffiliateProducts', JSON.stringify(products));
+                
+                // Aggiungi alla pagina
+                addProductToPage(product);
+                
+                // Resetta il form
+                document.getElementById('amazon-url-input').value = '';
+                document.getElementById('product-title-input').value = '';
+                document.getElementById('product-image-input').value = '';
+                document.getElementById('product-price-input').value = '';
+                document.getElementById('product-original-price-input').value = '';
+                document.getElementById('product-rating-input').value = '';
+                document.getElementById('product-reviews-input').value = '';
+                document.getElementById('prime-checkbox').checked = false;
+                document.getElementById('time-deal-checkbox').checked = false;
+                document.getElementById('product-subcategory').value = '';
+                
+                alert('Prodotto aggiunto con successo!');
+            });
+            
+            // Aggiungi prodotto alla pagina
+            function addProductToPage(product) {
+                // Crea la sezione categoria se non esiste
+                let categorySection = document.getElementById(product.category);
+                if (!categorySection) {
+                    categorySection = document.createElement('div');
+                    categorySection.id = product.category;
+                    categorySection.className = 'category-section';
+                    
+                    const emojiMap = {
+                        'elettronica': '🎮',
+                        'casa': '🏠',
+                        'libri': '📚',
+                        'bellezza': '💄',
+                        'giardino': '🌿',
+                        'sport': '⚽',
+                        'giochi-e-giocattoli': '🎮'
+                    };
+                    
+                    const emoji = emojiMap[product.category] || '🛍️';
+                    
+                    categorySection.innerHTML = `
+                        <h2 class="category-title"><i>${emoji}</i> ${capitalizeFirstLetter(product.category.replace(/-/g, ' '))}</h2>
+                        <div class="subcategory">
+                            <h3>${capitalizeFirstLetter(product.subcategory)}</h3>
+                            <div class="product-grid" id="grid-${product.category}-${product.subcategory}"></div>
                         </div>
                     `;
-                    document.getElementById('amazon-url-input').value = '';
+                    
+                    // Inserisci prima del footer
+                    document.querySelector('footer').before(categorySection);
+                    
+                    // Aggiungi al menu di navigazione
+                    const nav = document.querySelector('.nav');
+                    if (nav) {
+                        const navItem = document.createElement('a');
+                        navItem.href = `#${product.category}`;
+                        navItem.textContent = `${emoji} ${capitalizeFirstLetter(product.category.replace(/-/g, ' '))}`;
+                        nav.appendChild(navItem);
+                    }
                 }
-            });
-
-            // Converti automaticamente al caricamento
-            document.addEventListener('DOMContentLoaded', () => {
-                setTimeout(convertAmazonLinks, 1000);
-            });
+                
+                // Trova o crea la griglia per la sottocategoria
+                let productGrid = document.getElementById(`grid-${product.category}-${product.subcategory}`);
+                if (!productGrid) {
+                    // Cerca se esiste già una sottocategoria
+                    const subcategories = categorySection.querySelectorAll('.subcategory');
+                    let existingSubcategory = null;
+                    
+                    subcategories.forEach(sub => {
+                        if (sub.querySelector('h3').textContent === product.subcategory) {
+                            existingSubcategory = sub;
+                        }
+                    });
+                    
+                    if (existingSubcategory) {
+                        productGrid = existingSubcategory.querySelector('.product-grid');
+                    } else {
+                        const newSubcategory = document.createElement('div');
+                        newSubcategory.className = 'subcategory';
+                        newSubcategory.innerHTML = `
+                            <h3>${capitalizeFirstLetter(product.subcategory)}</h3>
+                            <div class="product-grid" id="grid-${product.category}-${product.subcategory}"></div>
+                        `;
+                        categorySection.appendChild(newSubcategory);
+                        productGrid = newSubcategory.querySelector('.product-grid');
+                    }
+                }
+                
+                // Crea la card del prodotto
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.dataset.asin = product.asin;
+                
+                let priceHtml = `<div class="product-price">${product.price}`;
+                if (product.originalPrice) {
+                    priceHtml += ` <span class="original-price">invece di ${product.originalPrice}</span>`;
+                }
+                priceHtml += '</div>';
+                
+                if (product.timeDeal) {
+                    priceHtml = `<div class="product-price">A soli ${product.price} <span class='time-deal'>Offerta a tempo</span>`;
+                    if (product.originalPrice) {
+                        priceHtml += ` <span class="original-price">invece di ${product.originalPrice}</span>`;
+                    }
+                    priceHtml += '</div>';
+                }
+                
+                let reviewsHtml = '';
+                if (product.rating && product.reviews) {
+                    reviewsHtml = `
+                        <div class="product-reviews">
+                            <span class="rating">${product.rating}</span>
+                            <i class="star-icon">★</i>
+                            <span class="review-count">${product.reviews} voti</span>
+                        </div>
+                    `;
+                }
+                
+                productCard.innerHTML = `
+                    <button class="delete-product" onclick="deleteProduct('${product.asin}')">×</button>
+                    <img src="${product.image}" alt="${product.title}" class="product-img" onerror="this.src='https://via.placeholder.com/200?text=Immagine+non+disponibile'">
+                    <div class="product-title">${product.title}</div>
+                    ${product.prime ? '<div class="prime-badge">✔ Con Prime</div>' : ''}
+                    ${reviewsHtml}
+                    ${priceHtml}
+                    <a href="${product.url}" class="buy-btn" target="_blank">Vedi offerta</a>
+                `;
+                
+                productGrid.appendChild(productCard);
+            }
+            
+            // Renderizza i prodotti salvati
+            function renderSavedProducts() {
+                products.forEach(product => {
+                    addProductToPage(product);
+                });
+            }
+            
+            // Elimina prodotto
+            function deleteProduct(asin) {
+                if (confirm('Sei sicuro di voler eliminare questo prodotto?')) {
+                    products = products.filter(p => p.asin !== asin);
+                    localStorage.setItem('amazonAffiliateProducts', JSON.stringify(products));
+                    
+                    // Rimuovi dalla pagina
+                    const productCard = document.querySelector(`.product-card[data-asin="${asin}"]`);
+                    if (productCard) {
+                        productCard.remove();
+                    }
+                    
+                    // Controlla se la categoria è vuota e eventualmente rimuovila
+                    checkEmptyCategories();
+                }
+            }
+            
+            // Controlla categorie vuote
+            function checkEmptyCategories() {
+                const categorySections = document.querySelectorAll('.category-section');
+                categorySections.forEach(section => {
+                    const productGrids = section.querySelectorAll('.product-grid');
+                    let isEmpty = true;
+                    
+                    productGrids.forEach(grid => {
+                        if (grid.children.length > 0) {
+                            isEmpty = false;
+                        }
+                    });
+                    
+                    if (isEmpty && section.id !== 'elettronica' && section.id !== 'casa' && 
+                        section.id !== 'libri' && section.id !== 'bellezza' && 
+                        section.id !== 'giardino' && section.id !== 'sport' && 
+                        section.id !== 'giochi-e-giocattoli') {
+                        section.remove();
+                        
+                        // Rimuovi dal menu di navigazione
+                        const navItem = document.querySelector(`.nav a[href="#${section.id}"]`);
+                        if (navItem) {
+                            navItem.remove();
+                        }
+                    }
+                });
+            }
+            
+            // Utility: capitalizza la prima lettera
+            function capitalizeFirstLetter(string) {
+                return string.charAt(0).toUpperCase() + string.slice(1);
+            }
             
             // Pulsante di conversione manuale
             document.getElementById('convert-btn').addEventListener('click', convertAmazonLinks);
